@@ -1,0 +1,11 @@
+body {
+	/* 60px to move the container down and
+	 * make room for the navigation bar */
+	 padding-top: 60px;
+}
+
+.take-bp-btn {
+	position: absolute;
+	bottom: 10%;
+	width:90%;
+}
