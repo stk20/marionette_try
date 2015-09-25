@@ -1,6 +1,9 @@
 App.AppRouter = Marionette.AppRouter.extend({
   appRoutes: {
     '': 'showTakePressure',
-    'History': 'showBloodPressureList'
+    'Home': 'showTakePressure',
+    'History': 'showBloodPressureList',
+    'Edit': 'showBloodPressureEdit',
+    'Chart': 'showBloodPressureChart'
   }
 });

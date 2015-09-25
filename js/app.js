@@ -13,17 +13,17 @@ App.on("start", function(){
 		{
 			systolic: 120,
 			diastolic: 80,
-			date: "07/31/2015"
+			date: "2015-09-18T04:06"
 		},
 		{
 			systolic: 130,
 			diastolic: 85,
-			date: "08/05/2015"
+			date: "2015-09-19T10:06"
 		},
 		{
 			systolic: 111,
 			diastolic: 70,
-			date: "08/02/2015"
+			date: "2015-09-21T06:06"
 		}
 	]);
 	App.controller = new App.AppController();

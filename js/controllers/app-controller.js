@@ -9,5 +9,19 @@ App.AppController = Marionette.Controller.extend({
       collection: App.bps
     });
     App.regions.main.show(view);
+  },
+
+  showBloodPressureEdit: function(bp){
+    var view = new App.BloodPressureEditView({
+      model: bp
+    });
+    App.regions.main.show(view);
+  },
+
+  showBloodPressureChart: function(){
+    var view = new App.BloodPressureChartView({
+      collection: App.bps
+    });
+    App.regions.main.show(view);
   }
 });
