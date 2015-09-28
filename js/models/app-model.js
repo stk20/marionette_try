@@ -1,1 +1,2 @@
-App.BloodPressure = Backbone.Model.extend({});
+App.BloodPressure = Backbone.Model.extend({
+});

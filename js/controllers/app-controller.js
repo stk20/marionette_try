@@ -23,5 +23,6 @@ App.AppController = Marionette.Controller.extend({
       collection: App.bps
     });
     App.regions.main.show(view);
+    view.renderGraph();
   }
 });

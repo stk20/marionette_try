@@ -57,27 +57,24 @@ App.TakeBloodPressureView = Marionette.ItemView.extend({
 	}
 });
 
-App.BloodPressureChartView = Marionette.CollectionView.extend({
+App.BloodPressureChartView = Marionette.ItemView.extend({
+	template: "#bloodpressure-chart",
     sysData:[],
     diaData:[],
-    attributes: {
-    	id: "graph-container",
-    	style: "width:250px;height:250px;padding:100px"
-    },
     initialize: function(){
         this.listenTo(this.collection, "add", this.render);
         this.listenTo(this.collection, 'update', this.render);                
         this.listenTo(this.collection, "change", this.render);
-        this.render();
     },
     renderGraph: function(){
-        this.sysData = [];
-        this.diaData = [];
-        this.updateChartData();
-        $.plot(this.el, [this.sysData], {
+    	var self = this;
+        self.sysData = [];
+        self.diaData = [];
+        self.updateChartData();
+        $.plot($("#graph-container"), [self.sysData], {
             xaxis: {mode: "time"}
         });
-        return this;
+        return self;
     },
     updateChartData: function(){
         this.collection.each(function(bloodPressure){
