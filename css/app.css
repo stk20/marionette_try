@@ -1,20 +1,29 @@
+ /* Leave room for the navigation bars*/
 #app-container {
-	/* 60px to move the container down and
-	 * make room for the navigation bar */
 	 padding-top: 60px;
 	 padding-bottom: 60px;}
 
-.take-bp-btn {
+/* Take blood pressure button */
+#take-bp-btn {
 	position: absolute;
 	bottom: 15%;
-	width:90%;
+	width:80%;
 }
 
-.graph-container div.xAxis div.tickLabel
+/* Blood Pressure Graph */
+#bp-graph-container
 {
-	/*transform: rotate(-30deg);*/
+    width:100%;
+    height:40vh;
 }
 
+/* In case we want to rotate the bp axis labels */
+#bp-graph-container div.xAxis div.tickLabel
+{
+    /*transform: rotate(-30deg);*/
+}
+
+/* Scrollable table with fixed headers (might want to create a class)*/
 table.tableSection {
     display: table;
     width: 100%;
@@ -25,7 +34,7 @@ table.tableSection thead, table.tableSection tbody {
 }
 table.tableSection tbody {
     overflow: auto;
-    height: 300px;
+    height: 55vh;
 }
 table.tableSection tr {
     width: 100%;

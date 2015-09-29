@@ -1,6 +1,12 @@
-App.BloodPressureView = Marionette.ItemView.extend({
+/*
+ * All the App Views in a single file (split them out?)
+ */
+
+// View for a BloodPressure Item displayed in a table
+// Clicking on an item displays the edit item page
+App.BloodPressureTableView = Marionette.ItemView.extend({
 	tagName: "tr",
-	template: "#row-template",
+	template: "#bp-row-template",
 	events: {
 		"click": "editView"
 	},
@@ -9,16 +15,14 @@ App.BloodPressureView = Marionette.ItemView.extend({
 	}
 });
 
+// Table to display a collection of Blood Pressure Items
 App.BloodPressureListView = Marionette.CompositeView.extend({
-	childView: App.BloodPressureView,
+	childView: App.BloodPressureTableView,
 	childViewContainer: "tbody",
-	template: "#table-template"
-	// tagName: "ul",
-	// className: "list-group",
-	// childView: App.BloodPressureView,
-	// viewComparator: "date"
+	template: "#bp-table-template"
 });
 
+// View to edit a blood pressure item
 App.BloodPressureEditView = Marionette.ItemView.extend({
 	tagName: "form",
 	className: "form-inline",
@@ -27,20 +31,23 @@ App.BloodPressureEditView = Marionette.ItemView.extend({
 		"click #bp-save": "saveEdit",
 		"click #bp-cancel": "cancelEdit"
 	},
+
 	saveEdit: function() {
 		this.model.set({
 			systolic: $("#systolic-edit").val(),
 			diastolic: $("#diastolic-edit").val(),
 			date: this.getDate()
 		});
-		if (!App.bps.contains(this.model)) {
-			App.bps.add(this.model);
+		if (!App.bpCollection.contains(this.model)) {
+			App.bpCollection.add(this.model);
 		}
-		App.controller.showBloodPressureList();
+		App.controller.showBloodPressureTable();
 	},
+
 	cancelEdit: function() {
-		App.controller.showBloodPressureList();
+		App.controller.showBloodPressureTable();
 	},
+
 	getDate: function() {
 		var d = new Date($("#date-edit").val() + ' ' + $("#time-edit").val());
 		return d.getTime();
@@ -50,7 +57,7 @@ App.BloodPressureEditView = Marionette.ItemView.extend({
 App.TakeBloodPressureView = Marionette.ItemView.extend({
 	template: "#take-bloodpressure",
 	events: {
-		"click .take-bp-btn": "clickedButton"
+		"click #take-bp-btn": "clickedButton"
 	},
 	clickedButton: function(){
 		var date = new Date();
@@ -67,7 +74,7 @@ App.BloodPressureChartView = Marionette.ItemView.extend({
 	template: "#bloodpressure-chart",
     sysData:[],
     diaData:[],
-    xMin: null,
+    xMin: (new Date().getTime() - (1000*60*60*24*7)),
     events: {
 		"click #year-sort": "yearSort",
 		"click #month-sort": "monthSort",
@@ -84,12 +91,12 @@ App.BloodPressureChartView = Marionette.ItemView.extend({
         self.diaData = [];
         self.updateChartData();
         var fullData = [{data:self.sysData, label:"Systolic"}, {data:self.diaData, label:"Diastolic"}]
-        $.plot($(".graph-container"), fullData, {
+        $.plot($("#bp-graph-container"), fullData, {
             xaxis: {mode: "time",  timeformat: "%m/%d", min: self.xMin},
             points: {show: true},
             lines: {show: true},
             series: {shadowSize: 5},
-            legend: {container: $("#legend-container")},
+            legend: {container: $("#bp-legend-container")},
         });
         return self;
     },
